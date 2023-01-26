@@ -13,6 +13,17 @@ pipeline {
                 git url: 'https://github.com/or87600/DevOpsProject'
             }
         }
+        stage('pip install') {
+            steps {
+                script {
+                    if (checkOs() == 'Windows') {
+                        bat 'pip install --ignore-installed pymysql requests selenium flask pypika psutil'
+                    } else {
+                        sh 'pip install --ignore-installed pymysql requests selenium flask pypika psutil'
+                    }
+                }
+            }
+        }
         stage('Run rest_app') {
             steps {
                 script {
